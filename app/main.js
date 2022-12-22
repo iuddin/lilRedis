@@ -6,7 +6,7 @@ const server = net.createServer((connection) => {
   // Handle connection
   // Add event listener for the "data" event
   connection.on("data", () => {
-    //Send hard-coded response to client
+    //Send hard-coded response to client (since already known that req is PING)
     connection.write("+PONG\r\n")
   });
 });
