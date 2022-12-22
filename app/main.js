@@ -6,7 +6,7 @@ const server = net.createServer((connection) => {
   // Handle connection
   // Add event listener for the "data" event
   connection.on("data", () => {
-    //Send response to client
+    //Send hard-coded response to client
     connection.write("+PONG\r\n")
   });
 });
