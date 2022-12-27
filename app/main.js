@@ -9,10 +9,11 @@ const net = require("net");
 
 const server = net.createServer((connection) => {
   connection.on("data", (data) => {
+    console.log('Buffer obj', data);
     const dataInString = data.toString();
-    console.log('data after convert byte data in Buffer object to str', dataInString);
+    console.log('data after converting byte data in Buffer object to str', dataInString);
   });
-  
+
 });
 
 
