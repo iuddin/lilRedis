@@ -11,7 +11,7 @@ const server = net.createServer((connection) => {
   connection.on("data", (data) => {
     const dataInString = data.toString(); // convert byte data in Buffer obj to str (Redis command sent by client is in byte format in Buffer)
     //*2\r\n$4\r\nECHO\r\n$3\r\nhey\r\n
-    console.log(dataInString); //*1 $4  ping 
+    console.log('dataInString', dataInString); //*1 $4  ping 
     const parsed = parseRespArray(dataInString);
     console.log('parsed', parsed);
 
@@ -21,7 +21,7 @@ const server = net.createServer((connection) => {
   //extract the command and key from client's command RESP array (command: ECHO, key: hey)
   function parseRespArray(respArray) {
     console.log('respArray', respArray);
-    const splitStr = respArray.split(); //[ '*1', '$4', 'ping', '' ] //"\r\n"
+    const splitStr = respArray.split(); //[ '*1', '$4', 'ping', '' ] w "\r\n" ||| [ '*1\r\n$4\r\nping\r\n' ] wo
     console.log('splitStr', splitStr); 
     return splitStr;
   }
