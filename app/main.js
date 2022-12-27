@@ -18,7 +18,8 @@ const server = net.createServer((connection) => {
     if (command.cmd === 'ping') {
       connection.write("+PONG\r\n")
     } else if (command.cmd === 'echo') {
-      connection.write("${command.val}");
+      console.log('cmmnd.val', command.val);
+      connection.write(`${command.val}`);
     }
 
 
