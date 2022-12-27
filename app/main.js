@@ -21,9 +21,8 @@ const server = net.createServer((connection) => {
       console.log('cmmnd.val', command.val);
       connection.write(`+${command.val}\r\n`); //reply has to be a valid RESP data type
     }
-
-
-  });
+    
+  }); 
 
   //extract the command and key from client's command RESP array (command: ECHO, key: hey)
   function parseRespArray(respArray) {
