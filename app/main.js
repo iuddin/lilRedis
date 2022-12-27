@@ -11,6 +11,10 @@ const server = net.createServer((connection) => {
     //In JS, listening for the data event will also automatically handle/respond to multiple PING commands sent by the same connection/client
     //Since the concurrency model is based on event loop in JS, above code will handle multiple concurrent clients
   });
+
+  connection.on("clientCommandData", () => {
+    connection.write(`+${clientCommandData}\r\n`)
+  })
 });
 
 server.listen(6379, "127.0.0.1");
