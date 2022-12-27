@@ -19,9 +19,9 @@ const server = net.createServer((connection) => {
 
   //extract the command and key from client's command RESP array (command: ECHO, key: hey)
   function parseRespArray(respArray) {
-    console.log(respArray);
+    console.log('respArray', respArray);
     const splitStr = respArray.split();
-    console.log(splitStr);
+    console.log('splitStr', splitStr);
   }
 
 });
