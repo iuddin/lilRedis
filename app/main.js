@@ -8,6 +8,7 @@ const net = require("net");
   //No need to use threads or implement an event loop
 
 const server = net.createServer((connection) => {
+  console.log('print connection', connection);
   connection.on("data", (data) => {
     console.log('Buffer obj', data);
     const dataInString = data.toString();
