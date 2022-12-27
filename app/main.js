@@ -13,13 +13,13 @@ const net = require("net");
 const server = net.createServer((connection) => {
   connection.on("data", (data) => {
     const dataInString = data.toString(); // convert byte data in Buffer obj to str (Redis command sent by client is in byte format in Buffer)
-    console.log(dataInString); //*1 $4  ping 
+    // console.log(dataInString); //*1 $4  ping 
     const command = parseRespArray(dataInString); //command = obj
     if (command.cmd === 'ping') {
       connection.write("+PONG\r\n")
     } else if (command.cmd === 'echo') {
       console.log('cmmnd.val', command.val);
-      connection.write(command.val);
+      connection.write(`${command.val}\r\n`); //reply has to be a valid RESP data type
     }
 
 
