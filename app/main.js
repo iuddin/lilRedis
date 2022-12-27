@@ -7,11 +7,13 @@ const net = require("net");
 //Handle concurrent connection: createServer handles concurrency
   //No need to use threads or implement an event loop
 
+
+//*2\r\n$4\r\nECHO\r\n$3\r\nhey\r\n --> *2 $4 ECHO $3 hey --> [*2, $4, ECHO, $3, hey] -> i=2 for cmd, i=4 for value
+
 const server = net.createServer((connection) => {
   connection.on("data", (data) => {
     const dataInString = data.toString(); // convert byte data in Buffer obj to str (Redis command sent by client is in byte format in Buffer)
-    //*2\r\n$4\r\nECHO\r\n$3\r\nhey\r\n
-    console.log('dataInString', dataInString); //*1 $4  ping 
+    console.log(dataInString); //*1 $4  ping 
     const parsed = parseRespArray(dataInString);
     console.log('parsed', parsed);
 
@@ -20,10 +22,11 @@ const server = net.createServer((connection) => {
 
   //extract the command and key from client's command RESP array (command: ECHO, key: hey)
   function parseRespArray(respArray) {
-    console.log('respArray', respArray);
-    const splitStr = respArray.split(); //[ '*1', '$4', 'ping', '' ] w "\r\n" ||| [ '*1\r\n$4\r\nping\r\n' ] wo
-    console.log('splitStr', splitStr); 
-    return splitStr;
+    console.log(respArray); //*1 $4  ping 
+    const splitStr = respArray.split("\r\n"); //[ '*1', '$4', 'ping', '' ] 
+    //FYI: if .split() then prints '*1 $4  ping' joined [ '*1\r\n$4\r\nping\r\n' ]
+    const cmd = {"cmd": splitStr[2], "val": splitStr[4]};
+    return cmd;
   } 
 
 });
