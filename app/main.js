@@ -12,7 +12,8 @@ const server = net.createServer((connection) => {
     const dataInString = data.toString(); // convert byte data in Buffer obj to str (Redis command sent by client is in byte format in Buffer)
     //*2\r\n$4\r\nECHO\r\n$3\r\nhey\r\n
     console.log(dataInString); //*1 $4  ping 
-
+    const parsed = parseRespArray(dataInString);
+    console.log(parsed);
 
 
   });
@@ -22,6 +23,7 @@ const server = net.createServer((connection) => {
     console.log('respArray', respArray);
     const splitStr = respArray.split();
     console.log('splitStr', splitStr);
+    return splitStr;
   }
 
 });
