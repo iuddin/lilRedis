@@ -22,7 +22,7 @@ const server = net.createServer((connection) => {
   function parseRespArray(respArray) {
     console.log('respArray', respArray);
     const splitStr = respArray.split("\r\n");
-    console.log('splitStr', splitStr);
+    console.log('splitStr', splitStr); 
     return splitStr;
   }
 
