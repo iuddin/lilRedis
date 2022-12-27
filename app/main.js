@@ -7,15 +7,19 @@ const net = require("net");
 //Handle concurrent connection: createServer handles concurrency
   //No need to use threads or implement an event loop
 
-
+//*1\r\n$4\r\nping\r\n - ping command
 //*2\r\n$4\r\nECHO\r\n$3\r\nhey\r\n --> *2 $4 ECHO $3 hey --> [*2, $4, ECHO, $3, hey] -> i=2 for cmd, i=4 for value
 
 const server = net.createServer((connection) => {
   connection.on("data", (data) => {
     const dataInString = data.toString(); // convert byte data in Buffer obj to str (Redis command sent by client is in byte format in Buffer)
     console.log(dataInString); //*1 $4  ping 
-    const parsed = parseRespArray(dataInString);
-    console.log('parsed', parsed);
+    const command = parseRespArray(dataInString); //command = obj
+    if (command.cmd === 'ping') {
+      connection.write("+PONG\r\n")
+    } else if (command.cmd === 'echo') {
+      connection.write("${command.val}");
+    }
 
 
   });
