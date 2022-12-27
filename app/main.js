@@ -24,7 +24,7 @@ const server = net.createServer((connection) => {
     const splitStr = respArray.split(); //[ '*1', '$4', 'ping', '' ] w "\r\n" ||| [ '*1\r\n$4\r\nping\r\n' ] wo
     console.log('splitStr', splitStr); 
     return splitStr;
-  }
+  } 
 
 });
 
