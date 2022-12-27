@@ -8,12 +8,21 @@ const net = require("net");
   //No need to use threads or implement an event loop
 
 const server = net.createServer((connection) => {
-  console.log('print connection', connection);
   connection.on("data", (data) => {
-    console.log('Buffer obj', data);
-    const dataInString = data.toString();
-    console.log('data after converting byte data in Buffer object to str', dataInString);
+    const dataInString = data.toString(); // convert byte data in Buffer obj to str (Redis command sent by client is in byte format in Buffer)
+    //*2\r\n$4\r\nECHO\r\n$3\r\nhey\r\n
+    console.log(dataInString); //*1 $4  ping 
+
+
+
   });
+
+  //extract the command and key from client's command RESP array (command: ECHO, key: hey)
+  function parseRespArray(respArray) {
+    console.log(respArray);
+    const splitStr = respArray.split();
+    console.log(splitStr);
+  }
 
 });
 
