@@ -24,6 +24,8 @@ const server = net.createServer((connection) => {
     
   }); 
 
+  //implement SET and GET commands
+
   //extract the command and key from client's command RESP array (command: ECHO, key: hey)
   function parseRespArray(respArray) {
     console.log(respArray); //*1 $4  ping 
